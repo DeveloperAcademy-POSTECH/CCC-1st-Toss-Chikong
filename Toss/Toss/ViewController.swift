@@ -14,23 +14,23 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(named: "BgColor")
         
+        // NavigationBar RightItem
         let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: nil)
         let chat = UIBarButtonItem(image: UIImage(systemName: "message.fill"), style: .plain, target: self, action: nil)
         let bell = UIBarButtonItem(image: UIImage(systemName: "bell.fill"), style: .plain, target: self, action: nil)
-        
-        navigationItem.rightBarButtonItems = [bell, chat, plus]
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: tossIcon, style: .plain, target: self, action: nil)
 
-        let tossIcon  = UIImage(named: "tossLogo")?.resizeTo(size: CGSize(width: 120, height: 300))
+        // NavigationBar LeftItem
+        let tossIcon  = UIImage(named: "tossLogo")?.resizeTo(size: CGSize(width: 120, height: 300)).withTintColor(UIColor(named: "NavItems")!)
         let tossButton = UIButton()
         tossButton.setBackgroundImage(tossIcon, for: .normal)
         let tossBarButton = UIBarButtonItem(customView: tossButton)
-        
+                
+        plus.tintColor = UIColor(named: "NavItems")
+        chat.tintColor = UIColor(named: "NavItems")
+        bell.tintColor = UIColor(named: "NavItems")
+       
         navigationItem.leftBarButtonItem = tossBarButton
-        
-        plus.tintColor = UIColor.gray
-        chat.tintColor = UIColor.gray
-        bell.tintColor = UIColor.gray
+        navigationItem.rightBarButtonItems = [bell, chat, plus]
         
     }
 }

@@ -11,9 +11,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    
+        self.view.backgroundColor = UIColor(named: "BgColor")
         
-        self.title = "hello"
-        self.view.backgroundColor = .white
+        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: nil)
+        let chat = UIBarButtonItem(image: UIImage(systemName: "message.fill"), style: .plain, target: self, action: nil)
+        let bell = UIBarButtonItem(image: UIImage(systemName: "bell.fill"), style: .plain, target: self, action: nil)
+        
+        plus.tintColor = UIColor.gray
+        chat.tintColor = UIColor.gray
+        bell.tintColor = UIColor.gray
+        
+        navigationItem.rightBarButtonItems = [bell, chat, plus]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "toss", style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem?.tintColor = .gray
+        
     }
 }

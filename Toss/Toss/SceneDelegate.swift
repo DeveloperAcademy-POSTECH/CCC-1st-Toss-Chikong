@@ -21,12 +21,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 뷰컨트롤러 인스턴스 가져오기
         let mainVC = ViewController()
         
-        // 네비게이션 컨트롤러 설정
+//         네비게이션 컨트롤러 설정
         // 스택으로 쌓이는데 ViewController를 먼서 쌓음
         let navVC = UINavigationController(rootViewController: mainVC)
         
         // 뿌리 뷰 컨트롤러를 설정
         window?.rootViewController = navVC
+        
+        window?.rootViewController?.view.tintColor = UIColor(named: "NavItems")
+        
+        window?.backgroundColor = UIColor(named: "BgColor")
         
         // 설정한 윈도우를 보이게 끔 설정
         window?.makeKeyAndVisible()

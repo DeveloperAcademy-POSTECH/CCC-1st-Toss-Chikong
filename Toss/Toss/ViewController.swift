@@ -10,13 +10,25 @@ import UIKit
 class ViewController: UIViewController {
     var tableView = UITableView()
     var tableData = ["토스뱅크", "자산", "소비"]
+    let labelCellID = "label"
+    
+    let collection: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = .clear
+        return collection
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavigationTitle()
-        setTableView()
-        
+        configureUI()
+        collection.dataSource = self
+        collection.register(Cell.self, forCellWithReuseIdentifier: labelCellID)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,17 +50,26 @@ class ViewController: UIViewController {
         navigationItem.leftBarButtonItem = tossBarButton
         navigationItem.rightBarButtonItems = [bell, chat, plus]
     }
+
+    func configureUI() {
+        self.view.addSubview(collection)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        collection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        collection.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        collection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    }
+}
+
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tableData.count
+    }
     
-    func setTableView() {
-        // TableView
-        tableView = UITableView(frame: self.view.bounds, style: .plain)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = UIColor(named: "cellColor")
-        tableView.separatorColor = UIColor(named: "cellColor")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
-        view.addSubview(tableView)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collection.dequeueReusableCell(withReuseIdentifier: labelCellID, for: indexPath) as! Cell
+        cell.label.text = "\(tableData[indexPath.row])"
+        return cell
     }
 }
 
@@ -60,24 +81,5 @@ extension UIImage {
         }
         
         return image.withRenderingMode(self.renderingMode)
-    }
-}
-
-// 어떠한 동작을 수행 ( 유저와의 상호 작용 )
-extension ViewController: UITableViewDelegate {
-    
-}
-
-// 테이블의 내용 ( 리턴할 갯수, 내용물 )
-extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "\(tableData[indexPath.row])"
-        
-        return cell
     }
 }
